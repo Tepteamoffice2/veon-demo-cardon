@@ -1,0 +1,58 @@
+/* Hallmark · shape: tool-first single page · genre: modern-minimal · theme: custom · job: buy, visit · idea: "Сторінка-підбирач: фірмовий синій CARDON стає робочим полем для номера деталі, а жовті смуги з логотипа ведуть тільки до живої відповіді" · vibe: "точний, робочий, фірмовий синій, людина на зв’язку"
+ * paper: #FFFFFF · accent: #F2CB2F · display: Geologica · body: IBM Plex Sans · hero: brand-blue field with the headline and a white part-number picker (article / VIN / make), one yellow call button under it · nav: white sticky bar, logo left, five anchors, hours, phone as text, Viber, quiet sign-in · footer: white with a blue rule on top, logo, anchors, future sections, socials, address and hours · imagery: the product (client brand logos) · signature: a huge inverted triangle of the logo's yellow stripes cut by the right edge, its tip pointing into the part-number field
+ * axes: white/Geologica/yellow · surface: absolute · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E, the picker is one white slab; tabs, field size and the yellow-only-for-live-channels rule carry the expression instead of decoration */
+/* Hallmark · waive 7b · --color-bg #FFFFFF and --color-on-brand #FFFFFF · concept.md Look approves cold white paper and white type on the brand blue (contrast 6.37), the client's logo sits on white */
+/* Hallmark · waive 3 · border-left 8px brand on .sto__claim · concept.md asks for a thick blue rule on the left so the service block stands apart from the shop */
+/* Hallmark · waive 39b · input.picker__input 72px and the 56px call buttons · concept.md sets the article field at 72px and the hero call button at 56px so a part number and a call are the biggest targets on the page */
+/* Line 1 of this file is the Hallmark stamp (docs/process/hallmark.md); filled from design/concept.md. */
+/* Client design tokens: ONLY from design/concept.md (veon-concept: colors, fonts). */
+:root {
+  /* colour roles (concept.md §5 Look) */
+  --color-bg: #FFFFFF;
+  --color-surface: #F3F5F9;
+  --color-text: #101B30;
+  --color-muted: #4B5871;
+  --color-brand: #2F5EA9;
+  --color-brand-deep: #1D3F78;
+  --color-on-brand: #FFFFFF;
+  --color-on-brand-muted: #D6E1F3;
+  --color-accent: #F2CB2F;
+  --color-accent-hover: #E6BD1C;
+  --color-on-accent: #101B30;
+  --color-accent-ink: #101B30;
+  --color-border-strong: #6E7C96;
+  --color-border: #C9D1DF;
+  --color-focus: #2F5EA9;
+
+  /* type */
+  --font-display: "Geologica Variable", "Geologica", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --fs-14: 0.875rem;
+  --fs-17: 1.0625rem;
+  --fs-21: 1.3125rem;
+  --fs-28: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --fs-40: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+  --fs-64: clamp(2.125rem, 1.4rem + 3.4vw, 4rem);
+
+  /* spacing scale 4/8 */
+  --s-8: 0.5rem;
+  --s-16: 1rem;
+  --s-24: 1.5rem;
+  --s-32: 2rem;
+  --s-48: 3rem;
+  --s-72: 4.5rem;
+  --s-112: 7rem;
+  --block: clamp(4.5rem, 3rem + 4.5vw, 7rem);
+
+  --radius: 6px;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 480ms;
+  --space: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
+  --container: 1240px;
+  --header-h: 72px;
+  --bar-h: 64px;
+}
+@media (max-width: 767px) {
+  :root { --header-h: 56px; --dur: 360ms; }
+}

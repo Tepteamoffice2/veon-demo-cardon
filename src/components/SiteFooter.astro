@@ -1,0 +1,47 @@
+---
+import { Picture } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import logo from "../assets/img/cardon-logo.png";
+import { address, hours, since, socials, NOTE } from "../data/site";
+
+const anchors = [
+  { href: "#marky", label: "Марки" },
+  { href: "#katalog", label: "Каталог" },
+  { href: "#pidbir", label: "Підбір" },
+  { href: "#sto", label: "СТО" },
+  { href: "#kontakty", label: "Контакти" },
+];
+const future = ["Оплата і доставка", "Повернення", "Співпраця", "Новини та статті", "FAQ", "Політика конфіденційності"];
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="#top" aria-label="CARDON, на початок сторінки" class="site-header__logo">
+          <Picture src={logo} formats={["avif", "webp"]} widths={[81, 162, 243]} sizes="81px" alt="CARDON" width={81} height={56} />
+        </a>
+        <p>Запчастини до іномарок у Києві з {since} року. {address}. {hours}.</p>
+      </div>
+      <nav aria-label="Розділи сторінки, повтор">
+        <ul class="site-footer__nav">
+          {anchors.map((a) => <li><a href={a.href}>{a.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+    <div class="site-footer__mid">
+      <div>
+        <p class="site-footer__label">Інформація для покупців</p>
+        <ul class="site-footer__future">
+          {future.map((f) => <li><FutureLink note={NOTE}>{f}</FutureLink></li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="site-footer__label">CARDON у соцмережах</p>
+        <ul class="site-footer__social">
+          {socials.map((s) => <li><a href={s.href} rel="noopener" target="_blank">{s.name}<span class="visually-hidden"> (нове вікно)</span></a></li>)}
+        </ul>
+      </div>
+    </div>
+    <p class="site-footer__bottom">© CARDON, {since}–{new Date().getFullYear()}</p>
+  </div>
+</footer>

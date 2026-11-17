@@ -1,0 +1,54 @@
+---
+// Part picker (concept §5, ux §7): three entries — article, VIN, make. Nothing is submitted:
+// the search button is a FutureLink, the live channels are mailto / tel / Viber.
+// Without JS the tablist is hidden and the three panels stand one under another.
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { makes, mailArticle, mailArticleSubject, mailVin, viber, NOTE, NOTE_SEARCH } from "../data/site";
+
+const tabs = [
+  { id: "art", label: "За артикулом" },
+  { id: "vin", label: "За VIN-кодом" },
+  { id: "make", label: "За маркою" },
+];
+---
+<div class="picker" data-picker data-rec="W-R002,G-R002,M-R003">
+  <div class="picker__tabs" role="tablist" aria-label="Як шукати запчастину">
+    {tabs.map((t, i) => (
+      <button class="picker__tab" type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-tab={t.id}>{t.label}</button>
+    ))}
+    <span class="picker__bar" aria-hidden="true"></span>
+  </div>
+
+  <div class="picker__panels">
+    <div class="picker__panel is-active" id="panel-art" role="tabpanel" aria-labelledby="tab-art">
+      <h2 class="picker__label-nojs">За артикулом</h2>
+      <label class="picker__field-label" for="article">Номер деталі (артикул)</label>
+      <div class="picker__row">
+        <input class="picker__input tnum" id="article" name="article" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="Наприклад, 12892-65J10-288" data-article data-subject={mailArticleSubject} />
+        <FutureLink note={NOTE_SEARCH} class="picker__find"><Icon name="search" size={20} />Знайти</FutureLink>
+      </div>
+      <p class="picker__hint">
+        <a class="picker__mail" href={mailArticle} data-article-mail><Icon name="mail" size={20} />Надіслати артикул менеджеру</a>
+        <span class="picker__hint-note">Менеджер перевірить оригінал, заміни та аналоги</span>
+      </p>
+    </div>
+
+    <div class="picker__panel" id="panel-vin" role="tabpanel" aria-labelledby="tab-vin">
+      <h2 class="picker__label-nojs">За VIN-кодом</h2>
+      <p class="picker__text">Вкажіть марку, модель, VIN-код із техпаспорта і що потрібно або що зламалось. Менеджер повернеться зі списком запчастин, цінами і строками.</p>
+      <p class="picker__actions">
+        <a class="btn btn--outline-brand" href={mailVin}><Icon name="mail" size={20} /><span class="lbl-lg">Надіслати запит на e-mail</span><span class="lbl-sm">На e-mail</span></a>
+        <a class="btn btn--text-brand" href={viber}><Icon name="viber" size={20} /><span class="lbl-lg">Написати у Viber</span><span class="lbl-sm">У Viber</span></a>
+      </p>
+    </div>
+
+    <div class="picker__panel" id="panel-make" role="tabpanel" aria-labelledby="tab-make">
+      <h2 class="picker__label-nojs">За маркою</h2>
+      <ul class="picker__makes" aria-label="Каталог ТО за марками">
+        {makes.map((m) => <li><FutureLink note={NOTE} class="picker__make">{m}</FutureLink></li>)}
+      </ul>
+      <p class="picker__other">Інша іномарка? <a href="#panel-vin" data-go-tab="vin">Підберемо за VIN-кодом</a></p>
+    </div>
+  </div>
+</div>

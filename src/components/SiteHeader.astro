@@ -1,0 +1,52 @@
+---
+import { Picture } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/img/cardon-logo.png";
+import { phones, viber, hours, NOTE } from "../data/site";
+
+const nav = [
+  { href: "#marky", label: "Марки" },
+  { href: "#katalog", label: "Каталог" },
+  { href: "#pidbir", label: "Підбір" },
+  { href: "#sto", label: "СТО" },
+  { href: "#kontakty", label: "Контакти" },
+];
+---
+<header class="site-header" data-rec="W-R001,G-R001,M-R002">
+  <div class="container site-header__row">
+    <a class="site-header__logo" href="#top" aria-label="CARDON, на початок сторінки">
+      <Picture src={logo} formats={["avif", "webp"]} widths={[70, 140, 210]} sizes="70px" alt="CARDON" width={70} height={48} loading="eager" />
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label="Розділи сторінки">
+      <ul class="site-nav__list">
+        {nav.map((n) => <li><a class="site-nav__link" href={n.href}>{n.label}</a></li>)}
+      </ul>
+      <div class="site-nav__extra">
+        <a class="site-nav__phone" href={phones.orders.tel}>
+          <span class="site-nav__phone-label">Онлайн-замовлення</span>
+          <span class="tnum">{phones.orders.display}</span>
+        </a>
+        <p class="site-nav__hours">{hours}</p>
+      </div>
+    </nav>
+
+    <div class="site-header__actions">
+      <p class="site-header__hours">{hours}</p>
+      <a class="site-header__phone tnum" href={phones.orders.tel}>
+        <Icon name="phone" size={20} />
+        <span class="site-header__phone-text">{phones.orders.display}</span>
+        <span class="visually-hidden">, подзвонити щодо замовлення</span>
+      </a>
+      <a class="icon-btn" href={viber} aria-label="Написати у Viber">
+        <Icon name="viber" />
+      </a>
+      <FutureLink note={NOTE} class="site-header__login">Увійти</FutureLink>
+      <button class="icon-btn site-header__burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню">
+        <span class="site-header__burger-open"><Icon name="menu" /></span>
+        <span class="site-header__burger-close"><Icon name="close" /></span>
+      </button>
+    </div>
+  </div>
+</header>

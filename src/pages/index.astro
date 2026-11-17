@@ -1,0 +1,262 @@
+---
+import "@fontsource-variable/geologica/wght.css";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/ibm-plex-sans/600.css";
+import geologicaCyr from "@fontsource-variable/geologica/files/geologica-cyrillic-wght-normal.woff2?url";
+import Base from "../layouts/Base.astro";
+import "../styles/site.css";
+import Section from "../components/Section.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Picker from "../components/Picker.astro";
+import Stripes from "../components/Stripes.astro";
+import Icon from "../components/Icon.astro";
+import FutureLink from "../components/FutureLink.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { Picture } from "astro:assets";
+import { phones, viber, mapUrl, addressShort, address, hours, email, makes, mailVin, contactGroups, NOTE } from "../data/site";
+import aral from "../assets/img/brand-aral.png";
+import mobil from "../assets/img/brand-mobil.png";
+import teikin from "../assets/img/brand-teikin.png";
+import riken from "../assets/img/brand-riken.png";
+import npr from "../assets/img/brand-npr.png";
+import tp from "../assets/img/brand-tp.png";
+import ndc from "../assets/img/brand-ndc.png";
+import rocky from "../assets/img/brand-rocky.png";
+
+const oils = [{ src: aral, alt: "ARAL" }, { src: mobil, alt: "Mobil" }];
+const motor = [
+  { src: teikin, alt: "Teikin" }, { src: riken, alt: "RIK (Riken)" }, { src: npr, alt: "NPR" },
+  { src: tp, alt: "TP" }, { src: ndc, alt: "NDC" }, { src: rocky, alt: "Rocky" },
+];
+const more = [
+  "Акумулятори",
+  "Хрестовини GMB, карданні та рульові вали",
+  "Сталевий захист двигуна та КПП",
+  "Інструмент JONNESWAY",
+  "Оригінальні каталоги виробників",
+  "US-каталог",
+];
+
+const title = "Автозапчастини до іномарок у Києві — склад і СТО | CARDON";
+const description = "Запчастини до Toyota, Suzuki, Mazda, Honda, Subaru, Nissan, Mitsubishi та інших іномарок з власного складу в Києві. Підбір за артикулом і VIN, власне СТО.";
+---
+<Base lang="uk" title={title} description={description}>
+  <link slot="head" rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link slot="head" rel="preload" href={geologicaCyr} as="font" type="font/woff2" crossorigin />
+  <SiteHeader slot="header" />
+
+  <Section id="hero" class="hero" rec="W-R001,W-R002">
+    <Stripes class="hero__sign" />
+    <div class="container hero__inner">
+      <Stripes class="hero__sign-mini" count={3} />
+      <h1 class="hero__title" data-rec="S-R004">Запчастини до японських авто та інших іномарок — з власного складу в Києві</h1>
+      <p class="hero__lead">Підберемо за артикулом, VIN-кодом або маркою; чого немає на складі, привеземо з партнерських складів в Україні.</p>
+      <Picker />
+      <div class="hero__live">
+        <a class="btn btn--action btn--lg" href={phones.orders.tel} data-hero-call>
+          <Icon name="phone" />Подзвонити <span class="tnum">{phones.orders.display}</span>
+        </a>
+        <a class="btn btn--ghost-light" href={viber}><Icon name="viber" />Написати у Viber</a>
+        <p class="hero__where">
+          <Icon name="pin" size={20} />
+          <span>{addressShort}</span>
+          <a href={mapUrl} rel="noopener" target="_blank">Маршрут<span class="visually-hidden"> (Google Maps, нове вікно)</span></a>
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="marky" class="section marky" rec="W-R004,G-R003">
+    <div class="container marky__grid">
+      <div class="marky__head">
+        <h2>Японські марки</h2>
+        <p class="section__lead">Каталог ТО для дев’яти марок. Запчастини до них тримаємо на власному складі в Києві.</p>
+      </div>
+      <ul class="marky__index" aria-label="Каталог ТО за марками">
+        {makes.map((m) => <li><FutureLink note={NOTE} class="marky__name">{m}</FutureLink></li>)}
+      </ul>
+      <p class="marky__other">Інша іномарка? <a href="#hero" data-go-tab="vin">Підберемо за VIN-кодом</a></p>
+    </div>
+  </Section>
+
+  <Section id="katalog" class="section katalog" rec="W-R005">
+    <div class="container">
+      <div class="section__head">
+        <h2>Що є в CARDON</h2>
+      </div>
+      <div class="katalog__grid">
+        <article class="tile tile--oils" data-reveal>
+          <h3>Оливи та рідини</h3>
+          <p class="tile__text">Моторні, трансмісійні, охолоджувальні. Оливу підбираємо за вашим авто в каталогах ARAL і Mobil та продаємо одразу з каталогу підбору.</p>
+          <ul class="tile__logos" aria-label="Бренди олив" data-rec="S-R010">
+            {oils.map((b) => <li><Picture src={b.src} formats={["avif", "webp"]} widths={[144, 288]} sizes="144px" alt={b.alt} width={144} height={72} loading="lazy" /></li>)}
+          </ul>
+          <FutureLink note={NOTE}>Підбір оливи за авто</FutureLink>
+        </article>
+        <article class="tile tile--motor" data-reveal style="--reveal-delay:100ms">
+          <h3>Моторна група</h3>
+          <p class="tile__text">Запчастини для ремонту двигуна від виробників, з якими працює CARDON.</p>
+          <ul class="tile__logos" aria-label="Бренди моторної групи" data-rec="S-R010">
+            {motor.map((b) => <li><Picture src={b.src} formats={["avif", "webp"]} widths={[112, 224]} sizes="112px" alt={b.alt} width={112} height={56} loading="lazy" /></li>)}
+          </ul>
+          <FutureLink note={NOTE}>Каталог моторної групи</FutureLink>
+        </article>
+        <ul class="katalog__list" aria-label="Інші розділи каталогу">
+          {more.map((m) => <li><FutureLink note={NOTE}>{m}</FutureLink></li>)}
+        </ul>
+        <div class="katalog__more">
+          <p class="katalog__more-text">Не знайшли потрібного? Підберемо.</p>
+          <a class="btn btn--outline-ink" href={phones.orders.tel}><Icon name="phone" size={20} />Подзвонити <span class="tnum">{phones.orders.display}</span></a>
+          <a class="btn btn--text-brand" href="#pidbir">Як ми підбираємо</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="pidbir" class="section pidbir" rec="W-R002,W-R005">
+    <div class="container">
+      <div class="section__head">
+        <h2>Як ми підбираємо запчастину</h2>
+        <p class="section__lead">Підбір робить менеджер, а не лише пошук на сайті.</p>
+      </div>
+      <div class="pidbir__lanes">
+        <div class="lane">
+          <h3>Є номер деталі</h3>
+          <p class="lane__text">Шукаємо за оригінальним номером і показуємо, що є на заміну.</p>
+          <ul class="lane__list">
+            <li>оригінал і його заміни</li>
+            <li>аналоги aftermarket за крос-кодами</li>
+            <li>ціни та строки поставки</li>
+          </ul>
+        </div>
+        <div class="lane">
+          <h3>Є тільки авто або VIN</h3>
+          <p class="lane__text">Напишіть, що відомо про авто і що потрібно. Менеджер повернеться зі списком запчастин, цінами і строками.</p>
+          <ul class="lane__list">
+            <li>марка і модель</li>
+            <li>VIN-код із техпаспорта</li>
+            <li>які деталі потрібні або що зламалось</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pidbir__actions">
+        <a class="btn btn--action btn--lg" href={mailVin}><Icon name="mail" />Надіслати запит за VIN</a>
+        <a class="btn btn--outline-ink btn--lg" href={phones.orders.tel}><Icon name="phone" />Подзвонити</a>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="sklad" class="section sklad" rec="W-R005">
+    <div class="container">
+      <div class="section__head">
+        <h2>Склад і наявність</h2>
+      </div>
+      <ul class="sklad__facts">
+        <li class="fact" data-reveal>
+          <p class="fact__big">З 2008 року</p>
+          <p class="fact__text">Магазин запчастин до іномарок працює з 2008 року.</p>
+        </li>
+        <li class="fact" data-reveal style="--reveal-delay:80ms">
+          <p class="fact__big">Власний склад у Києві</p>
+          <p class="fact__text">Для японських авто десятки тисяч запчастин є в наявності на власному складі.</p>
+        </li>
+        <li class="fact" data-reveal style="--reveal-delay:160ms">
+          <p class="fact__big">Чого немає, привеземо</p>
+          <p class="fact__text">Переміщуємо з партнерських складів в Україні або веземо під замовлення.</p>
+        </li>
+        <li class="fact" data-reveal style="--reveal-delay:240ms">
+          <p class="fact__big">Оригінал чи підробка</p>
+          <p class="fact__text">Розповідаємо, як відрізнити підробку від оригінальної деталі.</p>
+          <FutureLink note={NOTE}>Статті про підробки</FutureLink>
+        </li>
+      </ul>
+      <div class="sklad__actions">
+        <a class="btn btn--action btn--lg" href={phones.orders.tel}><Icon name="phone" />Подзвонити, щоб уточнити наявність</a>
+        <FutureLink note={NOTE}>Оплата і доставка</FutureLink>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="sto" class="section sto" rec="W-R007,G-R003">
+    <div class="container sto__grid">
+      <div class="sto__claim">
+        <h2>Власне СТО CARDON</h2>
+        <p class="sto__big">Купуєте тут, встановлюємо тут</p>
+      </div>
+      <div class="sto__body">
+        <p class="sto__text">Запчастини з нашого складу можна одразу встановити у власному автосервісі CARDON.</p>
+        <ul class="sto__services">
+          <li>встановлення куплених запчастин</li>
+          <li>ремонт і капітальний ремонт двигуна</li>
+        </ul>
+        <div class="sto__phones">
+          <div class="cgroup">
+            <p class="cgroup__task">Запис на станцію</p>
+            <p class="cgroup__nums">
+              <a class="cgroup__num tnum" href={phones.sto1.tel}>{phones.sto1.display}</a><span class="visually-hidden">, </span>
+              <a class="cgroup__num tnum" href={phones.sto2.tel}>{phones.sto2.display}</a>
+            </p>
+          </div>
+          <div class="cgroup">
+            <p class="cgroup__task">Менеджер СТО (також Viber)</p>
+            <p class="cgroup__nums">
+              <a class="cgroup__num tnum" href={phones.stoManager.tel}>{phones.stoManager.display}</a>
+              <a class="cgroup__viber" href={viber}><Icon name="viber" size={20} />Viber</a>
+            </p>
+          </div>
+        </div>
+        <a class="btn btn--action btn--lg sto__cta" href={phones.sto1.tel}><Icon name="phone" />Записатися на СТО</a>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="kontakty" class="section kontakty" rec="W-R003">
+    <div class="container">
+      <div class="section__head">
+        <h2>Контакти</h2>
+        <p class="section__lead">Кожен номер підписаний: дзвоніть туди, де відповідають саме на ваше питання.</p>
+      </div>
+      <div class="kontakty__grid">
+        <div class="kontakty__tasks">
+          {contactGroups.map((g) => (
+            <div class="cgroup">
+              <p class="cgroup__task">{g.task}</p>
+              <p class="cgroup__nums">
+                {g.phones.map((p, i) => <>{i > 0 && <span class="visually-hidden">, </span>}<a class="cgroup__num tnum" href={p.tel}>{p.display}</a></>)}
+                {g.viber && <a class="cgroup__viber" href={viber}><Icon name="viber" size={20} />Написати у Viber</a>}
+              </p>
+            </div>
+          ))}
+          <div class="cgroup">
+            <p class="cgroup__task">E-mail</p>
+            <p class="cgroup__nums"><a class="cgroup__num" href={`mailto:${email}`}>{email}</a></p>
+          </div>
+        </div>
+        <div class="kontakty__place">
+          <div class="place__item">
+            <p class="place__label">Магазин і склад</p>
+            <p class="place__value">{address}</p>
+            <a class="place__link" href={mapUrl} rel="noopener" target="_blank"><Icon name="pin" size={20} />Прокласти маршрут<span class="visually-hidden"> (Google Maps, нове вікно)</span></a>
+          </div>
+          <div class="place__item">
+            <p class="place__label">Графік роботи</p>
+            <p class="place__value">{hours}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <SiteFooter slot="footer" />
+
+  <div class="mbar" slot="footer" data-rec="W-R001,G-R001,M-R002">
+    <a class="btn btn--action" href={phones.orders.tel}><Icon name="phone" size={20} />Подзвонити</a>
+    <a class="btn btn--outline-brand" href={viber}><Icon name="viber" size={20} />Viber</a>
+    <a class="btn btn--outline-ink" href="#hero" data-go-tab="vin">За VIN</a>
+  </div>
+</Base>
+
+<script>
+  import "../scripts/ui.ts";
+</script>
